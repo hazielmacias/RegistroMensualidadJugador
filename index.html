@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Jugadores - Teotihuacán</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="loading">
+    <!-- Pantalla de Carga Inicial -->
+    <div id="initialLoading" class="initial-loading">
+        <div class="initial-loading-content">
+            <img src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591" alt="Teotihuacán Logo" class="initial-logo">
+            <div class="spinner-container">
+                <div class="initial-spinner"></div>
+            </div>
+            <p class="initial-text">Cargando Sistema</p>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Carga (Envío) -->
+    <div id="loadingScreen" class="loading-screen hidden">
+        <div class="loading-content">
+            <img src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591" alt="Teotihuacán Logo" class="loading-logo">
+            <div class="spinner-container">
+                <div class="loading-spinner"></div>
+            </div>
+            <p class="loading-text">Enviando registro</p>
+            <div class="loading-bar">
+                <div class="loading-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Éxito -->
+    <div id="successScreen" class="success-screen hidden">
+        <div class="success-content">
+            <img src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591" alt="Teotihuacán Logo" class="success-logo">
+            <div class="success-icon">
+                <svg viewBox="0 0 52 52" class="checkmark">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h2 class="success-title">¡Registro Exitoso!</h2>
+            <p class="success-message">Tu información ha sido guardada correctamente</p>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="registro-container">
+        <!-- Header -->
+        <header class="registro-header">
+            <img src="https://cdn.shopify.com/s/files/1/0763/5392/9451/files/03_TEOTIHUACAN_-_Fuerzas_Basicas.png?v=1749841591" alt="Teotihuacán Logo" class="registro-logo">
+            <h1>Control de Mensualidades</h1>
+            <p class="registro-subtitle">Registra tu pago mensual</p>
+        </header>
+
+        <!-- Main Card -->
+        <div class="registro-card">
+            <form id="registrationForm" class="registro-form" novalidate>
+                
+                <!-- Nombre Completo -->
+                <div class="form-field">
+                    <label for="nombreCompleto">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Nombre completo
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="nombreCompleto" 
+                        name="nombreCompleto" 
+                        class="form-input" 
+                        placeholder="Escribe tu nombre completo"
+                        required
+                        minlength="3"
+                        autocomplete="name"
+                    >
+                    <span class="error-message" id="errorNombre"></span>
+                </div>
+
+                <!-- Categoría -->
+                <div class="form-field">
+                    <label for="categoria">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                        Categoría
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="categoria" name="categoria" class="form-select" required>
+                        <option value="">Selecciona tu categoría</option>
+                        <option value="Alebrijes TDP">Alebrijes TDP</option>
+                        <option value="Soles TDP">Soles TDP</option>
+                        <option value="Sub-18">Sub-18</option>
+                        <option value="Sub-16">Sub-16</option>
+                        <option value="Sub-14">Sub-14</option>
+                    </select>
+                    <span class="error-message" id="errorCategoria"></span>
+                </div>
+
+                <!-- Ciudad -->
+                <div class="form-field">
+                    <label for="ciudad">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Ciudad
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="ciudad" 
+                        name="ciudad" 
+                        class="form-input" 
+                        placeholder="Escribe tu ciudad"
+                        required
+                        minlength="2"
+                    >
+                    <span class="error-message" id="errorCiudad"></span>
+                </div>
+
+                <!-- Contacto -->
+                <div class="form-field">
+                    <label for="contacto">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        Contacto (Teléfono)
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="contacto" 
+                        name="contacto" 
+                        class="form-input" 
+                        placeholder="10 dígitos"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        minlength="10"
+                        required
+                    >
+                    <span class="error-message" id="errorContacto"></span>
+                    <span class="form-hint">Ingresa 10 dígitos sin espacios</span>
+                </div>
+
+                <!-- Tipo de Pago -->
+                <div class="form-field">
+                    <label for="tipoPago">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                        Tipo de Pago
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="tipoPago" name="tipoPago" class="form-select" required>
+                        <option value="">Selecciona el tipo de pago</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <span class="error-message" id="errorTipoPago"></span>
+                </div>
+
+                <!-- Concepto de Pago -->
+                <div class="form-field">
+                    <label for="conceptoPago">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        Concepto de Pago
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="conceptoPago" name="conceptoPago" class="form-select" required>
+                        <option value="">Selecciona el concepto</option>
+                        <option value="Mensualidad">Mensualidad</option>
+                        <option value="Registro TDP">Registro TDP</option>
+                        <option value="Registro Fuerzas Básicas">Registro Fuerzas Básicas</option>
+                        <option value="Otro">Otro (Especificar)</option>
+                    </select>
+                    <span class="error-message" id="errorConcepto"></span>
+                </div>
+
+                <!-- Campo Otro Concepto (Oculto inicialmente) -->
+                <div class="form-field hidden" id="otroConceptoContainer">
+                    <label for="otroConcepto">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        Especifica el concepto
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="otroConcepto" 
+                        name="otroConcepto" 
+                        class="form-input" 
+                        placeholder="Describe el concepto de pago"
+                        minlength="3"
+                    >
+                    <span class="error-message" id="errorOtroConcepto"></span>
+                </div>
+
+                <!-- Monto -->
+                <div class="form-field">
+                    <label for="monto">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        Monto (MXN)
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="number" 
+                        id="monto" 
+                        name="monto" 
+                        class="form-input" 
+                        placeholder="0.00"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+                    <span class="error-message" id="errorMonto"></span>
+                </div>
+
+                <!-- Fecha Asignada -->
+                <div class="form-field">
+                    <label for="fechaAsignada">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Fecha Asignada (1 - 15 de cada mes)
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="fechaAsignada" name="fechaAsignada" class="form-select" required>
+                        <option value="">Selecciona el día asignado</option>
+                        <option value="1">Día 1 de cada mes</option>
+                        <option value="15">Día 15 de cada mes</option>
+                    </select>
+                    <span class="error-message" id="errorFechaAsignada"></span>
+                    <span class="form-hint">Día del mes en que debes realizar el pago</span>
+                </div>
+
+                <!-- Fecha de Pago -->
+                <div class="form-field">
+                    <label for="fechaPago">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Fecha de Pago
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="date" 
+                        id="fechaPago" 
+                        name="fechaPago" 
+                        class="form-input" 
+                        required
+                    >
+                    <span class="error-message" id="errorFecha"></span>
+                </div>
+
+                <!-- Folio del Comprobante -->
+                <div class="form-field">
+                    <label for="folioComprobante">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                        Folio del Comprobante
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="folioComprobante" 
+                        name="folioComprobante" 
+                        class="form-input" 
+                        placeholder="Número de folio o referencia"
+                        required
+                        minlength="3"
+                    >
+                    <span class="error-message" id="errorFolio"></span>
+                    <span class="form-hint">Ingresa el número de referencia de tu comprobante</span>
+                </div>
+
+                <!-- Comprobante de Pago -->
+                <div class="form-field">
+                    <label for="comprobante">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                        </svg>
+                        Comprobante de Pago
+                        <span class="required-star">*</span>
+                    </label>
+                    <div class="file-input-wrapper">
+                        <input 
+                            type="file" 
+                            id="comprobante" 
+                            name="comprobante" 
+                            class="file-input" 
+                            accept="image/*"
+                            required
+                        >
+                        <label for="comprobante" class="file-label" id="fileLabel">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <span class="file-text">Seleccionar imagen</span>
+                        </label>
+                        <div id="filePreview" class="file-preview hidden">
+                            <div class="file-preview-content">
+                                <img id="previewImage" src="" alt="Preview" class="preview-image">
+                                <div class="file-preview-info">
+                                    <p id="fileNameText" class="file-name-text"></p>
+                                    <div class="file-actions">
+                                        <button type="button" id="changeImageBtn" class="file-action-btn change-btn">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                            </svg>
+                                            Cambiar
+                                        </button>
+                                        <button type="button" id="deleteImageBtn" class="file-action-btn delete-btn">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="error-message" id="errorComprobante"></span>
+                    </div>
+                    <span class="form-hint">Solo imágenes (JPG, PNG, etc.)</span>
+                </div>
+
+                <!-- Cantidad Recibida en Efectivo -->
+                <div class="form-field hidden" id="cantidadEfectivoContainer">
+                    <label for="cantidadEfectivo">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        Cantidad Recibida en Efectivo (MXN)
+                        <span class="required-star">*</span>
+                    </label>
+                    <input 
+                        type="number" 
+                        id="cantidadEfectivo" 
+                        name="cantidadEfectivo" 
+                        class="form-input" 
+                        placeholder="0.00"
+                        min="0"
+                        step="0.01"
+                    >
+                    <span class="error-message" id="errorCantidadEfectivo"></span>
+                    <span class="form-hint">Monto recibido en efectivo</span>
+                </div>
+
+                <!-- Recibió -->
+                <div class="form-field hidden" id="recibioContainer">
+                    <label for="recibio">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Recibió
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="recibio" name="recibio" class="form-select">
+                        <option value="">Selecciona quién recibió</option>
+                        <option value="Juan">Juan</option>
+                        <option value="Amelia">Amelia</option>
+                    </select>
+                    <span class="error-message" id="errorRecibio"></span>
+                </div>
+
+                <!-- Botón de Envío -->
+                <button type="submit" class="btn-registro">
+                    <span>Confirmar Registro</span>
+                </button>
+            </form>
+        </div>
+
+        <footer class="registro-footer">
+            <p>Teotihuacán Fuerzas Básicas © 2025</p>
+        </footer>
+    </div>
+
+    <!-- Scripts de Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAD1solmKDUU_3e3-X5smMPZ18dsdeXdZU",
+            authDomain: "paneldecontrolmensualidades.firebaseapp.com",
+            projectId: "paneldecontrolmensualidades",
+            storageBucket: "paneldecontrolmensualidades.firebasestorage.app",
+            messagingSenderId: "941696609123",
+            appId: "1:941696609123:web:23d1feb29cebbf4e0cc156"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        window.db = getFirestore(app);
+        
+        console.log('✅ Firebase Firestore inicializado correctamente');
+    </script>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>

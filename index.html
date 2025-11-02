@@ -196,6 +196,37 @@
                     <span class="error-message" id="errorConcepto"></span>
                 </div>
 
+                <!-- Campo Mes (Visible solo si es Mensualidad) -->
+                <div class="form-field hidden" id="mesContainer">
+                    <label for="mes">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        Mes
+                        <span class="required-star">*</span>
+                    </label>
+                    <select id="mes" name="mes" class="form-select">
+                        <option value="">Selecciona el mes</option>
+                        <option value="Enero">Enero</option>
+                        <option value="Febrero">Febrero</option>
+                        <option value="Marzo">Marzo</option>
+                        <option value="Abril">Abril</option>
+                        <option value="Mayo">Mayo</option>
+                        <option value="Junio">Junio</option>
+                        <option value="Julio">Julio</option>
+                        <option value="Agosto">Agosto</option>
+                        <option value="Septiembre">Septiembre</option>
+                        <option value="Octubre">Octubre</option>
+                        <option value="Noviembre">Noviembre</option>
+                        <option value="Diciembre">Diciembre</option>
+                    </select>
+                    <span class="error-message" id="errorMes"></span>
+                    <span class="form-hint">Selecciona el mes correspondiente al pago</span>
+                </div>
+
                 <!-- Campo Otro Concepto (Oculto inicialmente) -->
                 <div class="form-field hidden" id="otroConceptoContainer">
                     <label for="otroConcepto">

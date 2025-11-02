@@ -1,28 +1,191 @@
-/* ===================================
-   VARIABLES CSS
-   =================================== */
+/* ========================================
+   VARIABLES Y COLORES TEOTIHUACÁN
+======================================== */
 :root {
-    --primary-color: #E67E22;
+    --primary: #E67E22;
     --primary-dark: #D35400;
     --primary-light: #F39C12;
-    --secondary-color: #2C3E50;
-    --success-color: #10B981;
-    --error-color: #EF4444;
-    --text-color: #2C3E50;
-    --text-light: #64748B;
-    --background: #F8FAFC;
-    --card-background: #FFFFFF;
-    --border-color: #E2E8F0;
-    --border-radius: 12px;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --secondary: #2C3E50;
+    --secondary-dark: #1A252F;
+    --success: #27AE60;
+    --danger: #E74C3C;
+    --warning: #F39C12;
+    --light: #ECF0F1;
+    --white: #FFFFFF;
+    --text: #2C3E50;
+    --text-light: #7F8C8D;
+    --border: #BDC3C7;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.15);
 }
 
-/* ===================================
-   RESET Y ESTILOS BASE
-   =================================== */
+/* ========================================
+   ANIMACIONES GLOBALES
+======================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    from { 
+        transform: rotate(0deg); 
+    }
+    to { 
+        transform: rotate(360deg); 
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes dotPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes loadingProgress {
+    0% {
+        width: 0%;
+    }
+    50% {
+        width: 70%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes checkmarkCircle {
+    0% {
+        stroke-dashoffset: 166;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes checkmarkCheck {
+    0% {
+        stroke-dashoffset: 48;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes successIconEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+    }
+    50% {
+        transform: scale(1.1) rotate(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes successLogoEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESET Y BASE
+======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -30,10 +193,11 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: var(--background);
-    color: var(--text-color);
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #F5F7FA;
+    color: var(--text);
     line-height: 1.6;
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -42,9 +206,9 @@ body.loading {
     overflow: hidden;
 }
 
-/* ===================================
-   PANTALLA DE CARGA INICIAL - MEJORADA
-   =================================== */
+/* ========================================
+   PANTALLA DE CARGA INICIAL
+======================================== */
 .initial-loading {
     position: fixed;
     top: 0;
@@ -75,7 +239,6 @@ body.loading {
     width: 200px;
     height: auto;
     margin-bottom: 40px;
-    /* Logo visible en pantalla de carga */
     animation: logoFloat 3s ease-in-out infinite;
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
 }
@@ -129,9 +292,9 @@ body.loading {
     animation-delay: 0.4s;
 }
 
-/* ===================================
-   PANTALLA DE CARGA (ENVÍO) - MEJORADA
-   =================================== */
+/* ========================================
+   PANTALLA DE CARGA (ENVÍO)
+======================================== */
 .loading-screen {
     position: fixed;
     top: 0;
@@ -168,22 +331,21 @@ body.loading {
     height: auto;
     margin-bottom: 30px;
     animation: logoPulse 2s ease-in-out infinite;
-    /* Logo visible */
 }
 
 .loading-spinner {
     width: 60px;
     height: 60px;
     margin: 0 auto;
-    border: 4px solid var(--border-color);
-    border-top: 4px solid var(--primary-color);
-    border-right: 4px solid var(--primary-color);
+    border: 4px solid #E1E8ED;
+    border-top: 4px solid var(--primary);
+    border-right: 4px solid var(--primary);
     border-radius: 50%;
     animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
 .loading-text {
-    color: var(--text-color);
+    color: var(--text);
     font-size: 18px;
     font-weight: 600;
     margin-top: 25px;
@@ -193,7 +355,7 @@ body.loading {
 .loading-bar {
     width: 100%;
     height: 4px;
-    background: var(--border-color);
+    background: #E1E8ED;
     border-radius: 2px;
     overflow: hidden;
     margin-top: 20px;
@@ -201,14 +363,14 @@ body.loading {
 
 .loading-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
     border-radius: 2px;
     animation: loadingProgress 2s ease-in-out infinite;
 }
 
-/* ===================================
-   PANTALLA DE ÉXITO - MEJORADA
-   =================================== */
+/* ========================================
+   PANTALLA DE ÉXITO
+======================================== */
 .success-screen {
     position: fixed;
     top: 0;
@@ -245,7 +407,6 @@ body.loading {
     height: auto;
     margin-bottom: 25px;
     animation: successLogoEnter 0.6s ease;
-    /* Logo visible */
 }
 
 .success-icon {
@@ -284,7 +445,7 @@ body.loading {
 }
 
 .success-title {
-    color: var(--text-color);
+    color: var(--text);
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -298,69 +459,71 @@ body.loading {
     animation: fadeInUp 0.6s ease 0.4s both;
 }
 
-/* ===================================
+/* ========================================
    CONTENEDOR PRINCIPAL
-   =================================== */
+======================================== */
 .registro-container {
-    max-width: 800px;
+    max-width: 550px;
     margin: 0 auto;
-    padding: 20px;
-    min-height: 100vh;
+    padding: 30px 20px;
 }
 
-/* ===================================
-   HEADER
-   =================================== */
+/* ========================================
+   HEADER DEL FORMULARIO
+======================================== */
 .registro-header {
+    background: white;
+    border-radius: 16px;
+    padding: 35px 30px;
     text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    border-radius: var(--border-radius);
-    margin-bottom: 30px;
-    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     animation: fadeInDown 0.6s ease;
 }
 
 .registro-logo {
-    width: 150px;
+    width: 140px;
     height: auto;
-    margin-bottom: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /* Logo visible sin filtros */
+    margin-bottom: 25px;
 }
 
 .registro-header h1 {
-    color: white;
-    font-size: 32px;
-    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--secondary);
     margin-bottom: 8px;
-    letter-spacing: -0.5px;
+    font-weight: 700;
 }
 
 .registro-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 16px;
-    font-weight: 400;
+    color: var(--text-light);
+    font-size: 0.95rem;
 }
 
-/* ===================================
-   CARD PRINCIPAL
-   =================================== */
+/* ========================================
+   CARD PRINCIPAL DEL FORMULARIO
+======================================== */
 .registro-card {
-    background: var(--card-background);
-    border-radius: var(--border-radius);
-    padding: 40px;
-    box-shadow: var(--shadow);
+    background: white;
+    border-radius: 16px;
+    padding: 35px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-top: 4px solid var(--primary);
     animation: fadeInUp 0.6s ease 0.2s both;
 }
 
-/* ===================================
-   CAMPOS DEL FORMULARIO
-   =================================== */
+/* ========================================
+   FORMULARIO Y CAMPOS
+======================================== */
+.registro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
 .form-field {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .form-field.hidden {
@@ -371,69 +534,72 @@ body.loading {
     display: flex;
     align-items: center;
     gap: 8px;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 8px;
-    font-size: 14px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
 .form-field label svg {
-    color: var(--primary-color);
+    color: var(--text-light);
     flex-shrink: 0;
 }
 
 .required-star {
-    color: var(--error-color);
+    color: var(--danger);
     margin-left: 2px;
 }
 
-/* ===================================
-   INPUTS Y SELECTS
-   =================================== */
 .form-input,
 .form-select {
     width: 100%;
     padding: 14px 16px;
-    border: 2px solid var(--border-color);
+    border: 1px solid #E1E8ED;
     border-radius: 10px;
-    font-size: 15px;
-    color: var(--text-color);
-    background: white;
-    transition: var(--transition);
+    font-size: 1rem;
+    background: #F9FAFB;
+    transition: all 0.2s ease;
     font-family: inherit;
+    color: var(--text);
+}
+
+textarea.form-input {
+    min-height: 90px;
+    resize: vertical;
+    line-height: 1.5;
 }
 
 .form-input:focus,
 .form-select:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--primary);
+    background: white;
     box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
-}
-
-.form-input:hover,
-.form-select:hover {
-    border-color: var(--primary-light);
 }
 
 .form-input.error,
 .form-select.error {
-    border-color: var(--error-color);
+    border-color: var(--danger);
     background: rgba(239, 68, 68, 0.05);
 }
 
 .form-select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232C3E50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 20px;
-    padding-right: 45px;
+    background-position: right 14px center;
+    padding-right: 40px;
 }
 
-/* ===================================
+.form-input::placeholder {
+    color: #9CA3AF;
+}
+
+/* ========================================
    INPUT FILE PERSONALIZADO
-   =================================== */
+======================================== */
 .file-input-wrapper {
     position: relative;
 }
@@ -448,21 +614,21 @@ body.loading {
     justify-content: center;
     gap: 10px;
     padding: 20px;
-    border: 2px dashed var(--border-color);
+    border: 2px dashed #E1E8ED;
     border-radius: 10px;
-    background: var(--background);
+    background: #F9FAFB;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     text-align: center;
 }
 
 .file-label:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     background: rgba(230, 126, 34, 0.05);
 }
 
 .file-label svg {
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .file-text {
@@ -470,15 +636,15 @@ body.loading {
     font-weight: 500;
 }
 
-/* ===================================
+/* ========================================
    PREVIEW DE ARCHIVO
-   =================================== */
+======================================== */
 .file-preview {
     margin-top: 15px;
     padding: 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #E1E8ED;
     border-radius: 10px;
-    background: var(--background);
+    background: #F9FAFB;
 }
 
 .file-preview.hidden {
@@ -496,7 +662,7 @@ body.loading {
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #E1E8ED;
 }
 
 .file-preview-info {
@@ -505,7 +671,7 @@ body.loading {
 
 .file-name-text {
     font-size: 14px;
-    color: var(--text-color);
+    color: var(--text);
     font-weight: 500;
     margin-bottom: 12px;
     word-break: break-word;
@@ -527,12 +693,12 @@ body.loading {
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     font-family: inherit;
 }
 
 .change-btn {
-    background: var(--primary-color);
+    background: var(--primary);
     color: white;
 }
 
@@ -542,28 +708,28 @@ body.loading {
 }
 
 .delete-btn {
-    background: var(--error-color);
+    background: var(--danger);
     color: white;
 }
 
 .delete-btn:hover {
-    background: #DC2626;
+    background: #C0392B;
     transform: translateY(-1px);
 }
 
-/* ===================================
+/* ========================================
    MENSAJES DE ERROR Y HINT
-   =================================== */
+======================================== */
 .error-message {
     display: block;
-    color: var(--error-color);
+    color: var(--danger);
     font-size: 13px;
     margin-top: 6px;
     font-weight: 500;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: var(--transition);
+    transition: all 0.2s ease;
 }
 
 .error-message.active {
@@ -580,240 +746,77 @@ body.loading {
     font-style: italic;
 }
 
-/* ===================================
-   BOTÓN DE ENVÍO
-   =================================== */
+/* ========================================
+   BOTONES
+======================================== */
 .btn-registro {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     padding: 16px 24px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-    color: white;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
-    margin-top: 30px;
+    transition: all 0.2s ease;
+    margin-top: 10px;
     font-family: inherit;
-    letter-spacing: 0.3px;
+    background: var(--primary);
+    color: white;
 }
 
-.btn-registro:hover {
+.btn-registro:hover:not(:disabled) {
+    background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(230, 126, 34, 0.4);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
 }
 
-.btn-registro:active {
+.btn-registro:active:not(:disabled) {
     transform: translateY(0);
 }
 
 .btn-registro:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    transform: none;
 }
 
-/* ===================================
+/* ========================================
    FOOTER
-   =================================== */
+======================================== */
 .registro-footer {
     text-align: center;
-    padding: 30px 20px;
+    padding: 25px 20px;
     color: var(--text-light);
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
-/* ===================================
-   ANIMACIONES
-   =================================== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes logoFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-15px);
-    }
-}
-
-@keyframes logoPulse {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.8;
-        transform: scale(0.95);
-    }
-}
-
-@keyframes dotPulse {
-    0%, 100% {
-        opacity: 0.3;
-        transform: scale(0.8);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-}
-
-@keyframes loadingProgress {
-    0% {
-        width: 0%;
-        transform: translateX(0);
-    }
-    50% {
-        width: 70%;
-        transform: translateX(0);
-    }
-    100% {
-        width: 100%;
-        transform: translateX(0);
-    }
-}
-
-@keyframes checkmarkCircle {
-    0% {
-        stroke-dashoffset: 166;
-    }
-    100% {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes checkmarkCheck {
-    0% {
-        stroke-dashoffset: 48;
-    }
-    100% {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes successIconEnter {
-    0% {
-        opacity: 0;
-        transform: scale(0) rotate(-45deg);
-    }
-    50% {
-        transform: scale(1.1) rotate(10deg);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-    }
-}
-
-@keyframes successLogoEnter {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===================================
+/* ========================================
    RESPONSIVE
-   =================================== */
-
-/* Tablets y pantallas medianas (768px - 1024px) */
-@media (max-width: 1024px) {
-    .registro-container {
-        padding: 15px;
-    }
-
-    .registro-card {
-        padding: 35px 25px;
-    }
-}
-
-/* Tablets pequeñas y móviles grandes (481px - 768px) */
+======================================== */
 @media (max-width: 768px) {
     .registro-container {
-        padding: 15px;
+        padding: 20px 15px;
     }
-
+    
     .registro-header {
-        padding: 30px 20px;
-        margin-bottom: 20px;
+        padding: 25px 20px;
     }
-
-    .registro-header h1 {
-        font-size: 26px;
-    }
-
-    .registro-subtitle {
-        font-size: 14px;
-    }
-
+    
     .registro-logo {
         width: 120px;
     }
-
+    
+    .registro-header h1 {
+        font-size: 1.5rem;
+    }
+    
     .registro-card {
-        padding: 30px 20px;
+        padding: 25px 20px;
     }
 
-    .form-field {
-        margin-bottom: 20px;
-    }
-
-    .form-input,
-    .form-select {
-        padding: 12px 14px;
-        font-size: 15px;
-    }
-
-    .btn-registro {
-        padding: 14px 20px;
-        font-size: 15px;
-    }
-
-    /* Pantallas de carga en tablets */
     .loading-content {
         padding: 40px 40px;
         min-width: 300px;
@@ -834,74 +837,26 @@ body.loading {
     }
 }
 
-/* Móviles (hasta 480px) */
 @media (max-width: 480px) {
-    .registro-container {
-        padding: 10px;
-    }
-
-    .registro-header {
-        padding: 25px 15px;
-        margin-bottom: 15px;
-        border-radius: 10px;
-    }
-
     .registro-header h1 {
-        font-size: 22px;
-        margin-bottom: 6px;
+        font-size: 1.3rem;
     }
-
-    .registro-subtitle {
-        font-size: 13px;
+    
+    .btn-registro {
+        font-size: 0.95rem;
+        padding: 14px 20px;
     }
-
-    .registro-logo {
-        width: 100px;
-        margin-bottom: 15px;
-    }
-
-    .registro-card {
-        padding: 25px 15px;
-        border-radius: 10px;
-    }
-
-    .form-field {
-        margin-bottom: 18px;
-    }
-
+    
     .form-field label {
-        font-size: 13px;
-        margin-bottom: 6px;
+        font-size: 0.8rem;
     }
-
+    
     .form-input,
     .form-select {
-        padding: 11px 12px;
-        font-size: 14px;
-        border-radius: 8px;
+        font-size: 0.95rem;
+        padding: 12px 14px;
     }
 
-    .form-select {
-        background-size: 18px;
-        padding-right: 40px;
-    }
-
-    .btn-registro {
-        padding: 13px 18px;
-        font-size: 14px;
-        border-radius: 8px;
-        margin-top: 20px;
-    }
-
-    .form-hint {
-        font-size: 11px;
-    }
-
-    .error-message {
-        font-size: 12px;
-    }
-
-    /* Preview de archivo en móviles */
     .file-preview-content {
         flex-direction: column;
         gap: 12px;
@@ -923,12 +878,6 @@ body.loading {
         padding: 10px 14px;
     }
 
-    .file-label {
-        padding: 18px 15px;
-        font-size: 14px;
-    }
-
-    /* Pantallas de carga en móviles */
     .initial-loading-content {
         padding: 0 20px;
     }
@@ -984,11 +933,6 @@ body.loading {
         margin-bottom: 15px;
     }
 
-    .loading-bar {
-        height: 3px;
-        margin-top: 15px;
-    }
-
     .success-content {
         padding: 40px 25px;
         width: 90%;
@@ -1020,55 +964,57 @@ body.loading {
     .success-message {
         font-size: 14px;
     }
-
-    .registro-footer {
-        padding: 20px 15px;
-        font-size: 13px;
-    }
 }
 
-/* Móviles muy pequeños (hasta 360px) */
-@media (max-width: 360px) {
-    .registro-header h1 {
-        font-size: 20px;
-    }
-
-    .registro-logo {
-        width: 90px;
-    }
-
-    .registro-card {
-        padding: 20px 12px;
-    }
-
-    .form-input,
-    .form-select {
-        padding: 10px;
-        font-size: 13px;
-    }
-
-    .btn-registro {
-        padding: 12px 16px;
-        font-size: 13px;
-    }
-
-    .initial-logo {
-        width: 120px;
-    }
-
-    .loading-content,
-    .success-content {
-        padding: 30px 20px;
-    }
-
-    .success-title {
-        font-size: 22px;
-    }
+/* ========================================
+   UTILIDADES
+======================================== */
+.text-center {
+    text-align: center;
 }
 
-/* ===================================
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+/* ========================================
+   ESTADOS Y ACCESIBILIDAD
+======================================== */
+.form-input:disabled,
+.form-select:disabled {
+    background-color: #F3F4F6;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.form-input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger);
+}
+
+.form-input:valid:not(:placeholder-shown) {
+    border-color: var(--success);
+}
+
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ========================================
    ACCESIBILIDAD
-   =================================== */
+======================================== */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1076,32 +1022,5 @@ body.loading {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-    }
-}
-
-/* ===================================
-   MODO OSCURO (OPCIONAL)
-   =================================== */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --text-color: #F8FAFC;
-        --text-light: #94A3B8;
-        --background: #0F172A;
-        --card-background: #1E293B;
-        --border-color: #334155;
-    }
-
-    .form-input,
-    .form-select {
-        background: #0F172A;
-        color: var(--text-color);
-    }
-
-    .file-label {
-        background: #0F172A;
-    }
-
-    .file-preview {
-        background: #0F172A;
     }
 }

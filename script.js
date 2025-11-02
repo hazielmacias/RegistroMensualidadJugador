@@ -35,11 +35,15 @@ const deleteImageBtn = document.getElementById('deleteImageBtn');
 const loadingScreen = document.getElementById('loadingScreen');
 const successScreen = document.getElementById('successScreen');
 
-// Nuevos elementos
+// Elementos de concepto de pago
 const conceptoPagoSelect = document.getElementById('conceptoPago');
 const otroConceptoContainer = document.getElementById('otroConceptoContainer');
 const otroConceptoInput = document.getElementById('otroConcepto');
+const mesContainer = document.getElementById('mesContainer');
+const mesInput = document.getElementById('mes');
 const fechaAsignadaContainer = document.querySelector('[for="fechaAsignada"]').closest('.form-field');
+
+// Elementos de tipo de pago
 const tipoPagoSelect = document.getElementById('tipoPago');
 const cantidadEfectivoContainer = document.getElementById('cantidadEfectivoContainer');
 const recibioContainer = document.getElementById('recibioContainer');
@@ -70,7 +74,7 @@ if (tipoPagoSelect) {
 }
 
 // ===================================
-// MOSTRAR/OCULTAR CAMPO "OTRO CONCEPTO" Y FECHA ASIGNADA
+// MOSTRAR/OCULTAR CAMPOS SEGÚN CONCEPTO DE PAGO
 // ===================================
 if (conceptoPagoSelect) {
     conceptoPagoSelect.addEventListener('change', (e) => {
@@ -87,11 +91,17 @@ if (conceptoPagoSelect) {
             clearError('OtroConcepto');
         }
         
-        // Mostrar "Fecha Asignada" SOLO si es "Mensualidad"
+        // Mostrar "Mes" y "Fecha Asignada" SOLO si es "Mensualidad"
         if (valorConcepto === 'Mensualidad') {
+            mesContainer.classList.remove('hidden');
+            mesInput.setAttribute('required', 'required');
             fechaAsignadaContainer.classList.remove('hidden');
             document.getElementById('fechaAsignada').setAttribute('required', 'required');
         } else {
+            mesContainer.classList.add('hidden');
+            mesInput.removeAttribute('required');
+            mesInput.value = '';
+            clearError('Mes');
             fechaAsignadaContainer.classList.add('hidden');
             document.getElementById('fechaAsignada').removeAttribute('required');
             document.getElementById('fechaAsignada').value = '';
@@ -201,7 +211,7 @@ function clearError(fieldId) {
 
 function clearAllErrors() {
     const errorIds = ['Nombre', 'Categoria', 'Ciudad', 'Contacto', 'TipoPago', 'Concepto', 'OtroConcepto', 
-                      'Monto', 'FechaAsignada', 'Fecha', 'Folio', 'Comprobante', 'CantidadEfectivo', 'Recibio'];
+                      'Mes', 'Monto', 'FechaAsignada', 'Fecha', 'Folio', 'Comprobante', 'CantidadEfectivo', 'Recibio'];
     errorIds.forEach(id => clearError(id));
 }
 
@@ -271,6 +281,15 @@ function validateForm() {
             isValid = false;
         } else if (otroConcepto.length < 3) {
             showError('OtroConcepto', 'El concepto debe tener al menos 3 caracteres');
+            isValid = false;
+        }
+    }
+    
+    // Validar mes solo si es "Mensualidad"
+    if (conceptoPago === 'Mensualidad') {
+        const mes = document.getElementById('mes').value;
+        if (!mes) {
+            showError('Mes', 'Debes seleccionar el mes');
             isValid = false;
         }
     }
@@ -350,6 +369,7 @@ const fieldsToWatch = [
     { id: 'tipoPago', error: 'TipoPago' },
     { id: 'conceptoPago', error: 'Concepto' },
     { id: 'otroConcepto', error: 'OtroConcepto' },
+    { id: 'mes', error: 'Mes' },
     { id: 'monto', error: 'Monto' },
     { id: 'fechaAsignada', error: 'FechaAsignada' },
     { id: 'fechaPago', error: 'Fecha' },
@@ -463,6 +483,7 @@ if (form) {
             const tipoPago = document.getElementById('tipoPago').value;
             const conceptoPago = document.getElementById('conceptoPago').value;
             const otroConcepto = conceptoPago === 'Otro' ? document.getElementById('otroConcepto').value.trim() : '';
+            const mes = conceptoPago === 'Mensualidad' ? document.getElementById('mes').value : null;
             const monto = parseFloat(document.getElementById('monto').value);
             const fechaAsignada = conceptoPago === 'Mensualidad' ? document.getElementById('fechaAsignada').value : null;
             const fechaPago = document.getElementById('fechaPago').value;
@@ -479,6 +500,7 @@ if (form) {
                 tipoPago,
                 conceptoPago,
                 otroConcepto,
+                mes,
                 monto,
                 fechaAsignada,
                 fechaPago,
@@ -515,6 +537,7 @@ if (form) {
                 tipoPago,
                 conceptoPago: conceptoPago === 'Otro' ? otroConcepto : conceptoPago,
                 conceptoPagoOriginal: conceptoPago,
+                mes,
                 monto,
                 fechaAsignada: fechaAsignada ? `Día ${fechaAsignada} de cada mes` : null,
                 fechaPago,
@@ -554,11 +577,17 @@ if (form) {
                 if (otroConceptoContainer) {
                     otroConceptoContainer.classList.add('hidden');
                 }
+                if (mesContainer) {
+                    mesContainer.classList.add('hidden');
+                }
                 if (cantidadEfectivoContainer) {
                     cantidadEfectivoContainer.classList.add('hidden');
                 }
                 if (recibioContainer) {
                     recibioContainer.classList.add('hidden');
+                }
+                if (fechaAsignadaContainer) {
+                    fechaAsignadaContainer.classList.add('hidden');
                 }
                 clearAllErrors();
                 console.log('🧹 Formulario limpiado');
@@ -602,7 +631,6 @@ if (montoInput) {
 }
 
 // Validar cantidad efectivo (solo números positivos o cero)
-cantidadEfectivoInput = document.getElementById('cantidadEfectivo');
 if (cantidadEfectivoInput) {
     cantidadEfectivoInput.addEventListener('input', (e) => {
         if (e.target.value < 0) {
